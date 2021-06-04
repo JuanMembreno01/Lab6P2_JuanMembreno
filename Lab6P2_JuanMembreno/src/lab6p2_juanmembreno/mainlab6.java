@@ -5,8 +5,10 @@
  */
 package lab6p2_juanmembreno;
 
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -89,6 +91,11 @@ public class mainlab6 extends javax.swing.JFrame {
         nombreAM = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        eliminaralumnos = new javax.swing.JDialog();
+        cb_alumnos = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         login = new javax.swing.JMenu();
         menulogin = new javax.swing.JMenuItem();
@@ -359,6 +366,11 @@ public class mainlab6 extends javax.swing.JFrame {
         );
 
         cb_alumnosmodificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_alumnosmodificar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_alumnosmodificarItemStateChanged(evt);
+            }
+        });
 
         jLabel16.setText("Numero Registro");
 
@@ -403,6 +415,11 @@ public class mainlab6 extends javax.swing.JFrame {
         jLabel27.setText("Apellido");
 
         jButton1.setText("Modificar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout modificaralumnosLayout = new javax.swing.GroupLayout(modificaralumnos.getContentPane());
         modificaralumnos.getContentPane().setLayout(modificaralumnosLayout);
@@ -541,6 +558,70 @@ public class mainlab6 extends javax.swing.JFrame {
                             .addGap(70, 70, 70)
                             .addComponent(facultadAM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(110, Short.MAX_VALUE)))
+        );
+
+        cb_alumnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_alumnos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_alumnosItemStateChanged(evt);
+            }
+        });
+
+        tabla1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "edad", "numero registro", "carrera", "promedio"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabla1);
+
+        jButton2.setText("eliminar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout eliminaralumnosLayout = new javax.swing.GroupLayout(eliminaralumnos.getContentPane());
+        eliminaralumnos.getContentPane().setLayout(eliminaralumnosLayout);
+        eliminaralumnosLayout.setHorizontalGroup(
+            eliminaralumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eliminaralumnosLayout.createSequentialGroup()
+                .addGroup(eliminaralumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(eliminaralumnosLayout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(cb_alumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(eliminaralumnosLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(eliminaralumnosLayout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        eliminaralumnosLayout.setVerticalGroup(
+            eliminaralumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eliminaralumnosLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(cb_alumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(151, 151, 151)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -841,6 +922,74 @@ public class mainlab6 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreAMActionPerformed
 
+    private void cb_alumnosmodificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_alumnosmodificarItemStateChanged
+          if (evt.getStateChange() == 2) {
+              
+                seleccionado = (alumnos) cb_alumnosmodificar.getSelectedItem();
+                this.nombreAM.setText(seleccionado.getNombre());
+                this.apellidoAM.setText(seleccionado.getApellido());
+                this.numregistroAM.setText(seleccionado.getNumregistro());
+                this.idAM.setText(seleccionado.getId());
+                this.carreraAM.setText(seleccionado.getCarrera());
+                this.añoAM.setText(seleccionado.getAño());
+                this.promedioAM.setText(seleccionado.getPromedio());
+                this.facultadAM.setText(seleccionado.getFacultad());
+                this.edadAM.setText(seleccionado.getEdad());
+                this.usuarioAM.setText(seleccionado.getUsuario());
+                this.contraseñaAM.setText(seleccionado.getContraseña());
+          }
+    }//GEN-LAST:event_cb_alumnosmodificarItemStateChanged
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try{
+        seleccionado.setApellido(apellidoAM.getText());
+        seleccionado.setAño(añoAM.getText());
+        seleccionado.setCarrera(carreraAM.getText());
+        seleccionado.setContraseña(contraseñaAM.getText());
+        seleccionado.setEdad(edadAM.getText());
+        seleccionado.setFacultad(facultadAM.getSelectedText());
+        seleccionado.setId(idAM.getText());
+        seleccionado.setNombre(nombreAM.getText());
+        seleccionado.setPromedio(promedioAM.getText());
+        seleccionado.setNumregistro(numregistroAM.getText());
+        seleccionado.setUsuario(usuarioAM.getText());
+        administraalumnos ap
+                    = new administraalumnos("./alumnos.txt");
+            ap.cargarArchivo();
+            alumnos p = new alumnos(nombreAM.getText(),apellidoAM.getText(),edadAM.getText(),numregistroAM.getText(),idAM.getText(),carreraAM.getText(),añoAM.getText(),promedioAM.getText(),facultadAM.getText(),usuarioAM.getText(),contraseñaAM.getText());
+            ap.getListaalumnos().remove(seleccionado);
+            ap.getListaalumnos().add(p);
+            ap.escribirArchivo();
+        
+        JOptionPane.showMessageDialog(this, "alumno modificado");
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(this, "Ocurrio un error");
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void cb_alumnosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_alumnosItemStateChanged
+         if (evt.getStateChange() == 2) {
+                alumnos a= (alumnos)
+                        cb_alumnos.getSelectedItem();
+                Object[] newrow = {a.getNombre(),a.getApellido(),a.getEdad(),a.getNumregistro(),a.getCarrera(),a.getPromedio()  };                
+                DefaultTableModel modelo
+                        = (DefaultTableModel) tabla1.getModel();
+                modelo.addRow(newrow);
+                tabla1.setModel(modelo);               
+                //tf_edad_maxima.setText(maxima_edad());               
+            }
+    }//GEN-LAST:event_cb_alumnosItemStateChanged
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+       if (tabla1.getSelectedRow() >= 0) {
+            DefaultTableModel modelo
+                    = (DefaultTableModel) tabla1.getModel();
+            modelo.removeRow(tabla1.getSelectedRow());
+            tabla1.setModel(modelo);
+            //tf_edad_maxima.setText(maxima_edad());
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -887,6 +1036,18 @@ public class mainlab6 extends javax.swing.JFrame {
         jd_ingresaralumno.setLocationRelativeTo(this);
         jd_ingresaralumno.setVisible(true);
     }
+      private void abrejdingresarM() {
+        modificaralumnos.setModal(true);
+        modificaralumnos.pack();
+        modificaralumnos.setLocationRelativeTo(this);
+        modificaralumnos.setVisible(true);
+    }
+        private void abrejdingresar() {
+        eliminaralumnos.setModal(true);
+        eliminaralumnos.pack();
+        eliminaralumnos.setLocationRelativeTo(this);
+        eliminaralumnos.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidoA;
     private javax.swing.JTextField apellidoAM;
@@ -894,11 +1055,13 @@ public class mainlab6 extends javax.swing.JFrame {
     private javax.swing.JTextField añoAM;
     private javax.swing.JTextField carreraA;
     private javax.swing.JTextField carreraAM;
+    private javax.swing.JComboBox<String> cb_alumnos;
     private javax.swing.JComboBox<String> cb_alumnosmodificar;
     private javax.swing.JTextField contraseñaA;
     private javax.swing.JTextField contraseñaAM;
     private javax.swing.JTextField edadA;
     private javax.swing.JTextField edadAM;
+    private javax.swing.JDialog eliminaralumnos;
     private javax.swing.JTextField facultadA;
     private javax.swing.JTextField facultadAM;
     private javax.swing.JTextField idA;
@@ -906,6 +1069,7 @@ public class mainlab6 extends javax.swing.JFrame {
     private javax.swing.JButton ingresar;
     private javax.swing.JButton ingresaralumno;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -961,6 +1125,7 @@ public class mainlab6 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JDialog jd_ingresaralumno;
     private javax.swing.JDialog jd_login;
     private javax.swing.JMenu login;
@@ -977,8 +1142,10 @@ public class mainlab6 extends javax.swing.JFrame {
     private javax.swing.JTextField pf_pass;
     private javax.swing.JTextField promedioA;
     private javax.swing.JTextField promedioAM;
+    private javax.swing.JTable tabla1;
     private javax.swing.JTextField tf_user;
     private javax.swing.JTextField usuarioA;
     private javax.swing.JTextField usuarioAM;
     // End of variables declaration//GEN-END:variables
+    alumnos seleccionado;
 }
