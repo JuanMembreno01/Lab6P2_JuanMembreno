@@ -126,6 +126,11 @@ public class alumnos {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
     
     
 }
